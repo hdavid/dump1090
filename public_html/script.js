@@ -44,7 +44,7 @@ function fetchData() {
 
 			// Call the function update
 			plane.funcUpdateData(data[j]);
-			
+			plane.funcUpdateLines();
 			// Copy the plane into Planes
 			Planes[plane.icao] = plane;
 		}
@@ -225,6 +225,7 @@ function reaper() {
 			// This way we still have it if it returns before then
 			// Due to loss of signal or other reasons
 			if ((reaptime - Planes[reap].updated) > 300000) {
+				Planes[reap].funcClearLine();
 				// Reap it.
 				delete Planes[reap];
 			}
@@ -584,7 +585,7 @@ function selectPlaneByHex(hex) {
 	// If SelectedPlane has something in it, clear out the selected
 	if (SelectedPlane != null) {
 		Planes[SelectedPlane].is_selected = false;
-		Planes[SelectedPlane].funcClearLine();
+		//Planes[SelectedPlane].funcClearLine();
 		Planes[SelectedPlane].markerColor = MarkerColor;
 		// If the selected has a marker, make it not stand out
 		if (Planes[SelectedPlane].marker) {
@@ -596,13 +597,15 @@ function selectPlaneByHex(hex) {
 	if (String(SelectedPlane) != String(hex)) {
 		// Assign the new selected
 		SelectedPlane = hex;
-		Planes[SelectedPlane].is_selected = true;
+		//Planes[SelectedPlane].is_selected = true;
+		Planes[SelectedPlane].is_selected = !Planes[SelectedPlane].is_selected
 		// If the selected has a marker, make it stand out
 		if (Planes[SelectedPlane].marker) {
 			Planes[SelectedPlane].funcUpdateLines();
 			Planes[SelectedPlane].marker.setIcon(Planes[SelectedPlane].funcGetIcon());
 		}
-	} else { 
+	} else {
+		Planes[SelectedPlane].is_selected = !Planes[SelectedPlane].is_selected;
 		SelectedPlane = null;
 	}
     refreshSelected();
