@@ -248,9 +248,9 @@ var planeObject = {
 				path.push(new google.maps.LatLng(this.latitude, this.longitude));
 			} else {
 				this.line = new google.maps.Polyline({
-					strokeColor: '#000000',
-					strokeOpacity: 1.0,
-					strokeWeight: 3,
+					strokeColor: '#ffffff',
+					strokeOpacity: 0.7,
+					strokeWeight: 2,
 					map: GoogleMap,
 					path: this.trackline
 				});
